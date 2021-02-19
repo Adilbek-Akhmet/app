@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="currency_types">
+        <item>Tenge</item>
+        <item>Dollar</item>
+    </string-array>
+</resources>
