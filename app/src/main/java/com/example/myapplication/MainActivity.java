@@ -4,11 +4,11 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.view.View;
+
 import android.widget.*;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import org.w3c.dom.Text;
+
 
 import java.time.Instant;
 import java.time.ZoneId;
@@ -17,7 +17,7 @@ import java.time.format.DateTimeFormatter;
 
 public class MainActivity extends AppCompatActivity {
     private TextView astana;
-    private TextView london;
+    private TextView moskow;
     private BroadcastReceiver minuteUpdateReceiver;
 
     @Override
@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
 
         astana = findViewById(R.id.astanaTime);
 
-        london = findViewById(R.id.londonTime);
+        moskow = findViewById(R.id.moskowTime);
 
         submitTemp.setOnClickListener(v -> {
             double temp = Double.parseDouble(temperatureInput.getText().toString());
@@ -100,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onReceive(Context context, Intent intent) {
                 astana.setText("Astana: " + getTimeInAstana());
-                london.setText("London: " + getTimeInLondon());
+                moskow.setText("Moskow: " + getTimeInMoskow());
             }
         };
         registerReceiver(minuteUpdateReceiver, intentFilter);
@@ -146,12 +146,12 @@ public class MainActivity extends AppCompatActivity {
         return nowAstana.format(formatter);
     }
 
-    private String getTimeInLondon() {
+    private String getTimeInMoskow() {
         Instant nowUtc = Instant.now();
-        ZoneId london = ZoneId.of("GMT");
-        ZonedDateTime nowLondon = ZonedDateTime.ofInstant(nowUtc, london);
+        ZoneId moskow = ZoneId.of("GMT+3");
+        ZonedDateTime nowMoskow = ZonedDateTime.ofInstant(nowUtc, moskow);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
-        return nowLondon.format(formatter);
+        return nowMoskow.format(formatter);
     }
 
     @Override
